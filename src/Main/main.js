@@ -2,15 +2,15 @@ import React,{useState,useRef,useEffect} from "react"
 import "./main.css"
 import { useTimer } from 'react-timer-hook';
 
-
-{/*const  Main =()=>{
+{/*
+const  Main =()=>{
 function padTime(time){
     return time.toString().padStart(2,"0");
 }
 
 const[timeLeft,setTimeLeft]=useState(30);
 
-//const [pause, setPause] = useState(false);
+const [pause, setPause] = useState(false);
 const intervalRef = useRef(null);
 const minutes=padTime(Math.floor(timeLeft/60));
 const seconds=padTime(timeLeft-minutes*60);
@@ -25,9 +25,16 @@ useEffect(() => {
 })
 
 
+const {
+   pausee,
+    isRunning,
+    start,
+  } = useTimer()
+
 
 
 function startTimer(){
+   
        intervalRef.current= setInterval(()=>{
        setTimeLeft(timeLeft => {
             if(timeLeft >= 1)return timeLeft -1;
@@ -40,11 +47,6 @@ clearInterval(intervalRef.current)
 }
 
 
-const {
-   pausee,
-    isRunning,
-    start,
-  } = useTimer()
 
 
 
@@ -54,13 +56,16 @@ const {
          <span>{minutes}</span>
          <span>:</span>
          <span>{seconds}</span>
-         <p>{isRunning ? 'Running' : 'Not running'}</p>
+      
      </div>
      <div className="btn">
-     {isRunning && (
-         <button onClick={startTimer}>Start</button>)}
-           {!isRunning && (
-         <button onClick={pausee}>Stop</button>)}
+     
+         <button onClick={startTimer}>Start</button>
+         
+        
+         <button onClick={stopTimer}>Stop</button> 
+          
+
     </div>
      <div className="line"style={{ width: `calc(${timeLeft} * (100% / ${useState(30)}))` }}></div>
   </div>
