@@ -1,15 +1,32 @@
-import React,{useState,useRef} from "react"
+import React,{useState,useRef,useEffect} from "react"
 import "./main.css"
+import { useTimer } from 'react-timer-hook';
 
-const  Main =()=>{
+
+{/*const  Main =()=>{
 function padTime(time){
     return time.toString().padStart(2,"0");
 }
 
 const[timeLeft,setTimeLeft]=useState(30);
+
+//const [pause, setPause] = useState(false);
 const intervalRef = useRef(null);
 const minutes=padTime(Math.floor(timeLeft/60));
 const seconds=padTime(timeLeft-minutes*60);
+
+const buttonPress = () => {
+    setPause(!pause);
+}
+useEffect(() => {
+    const cleanTimer = (event) => {
+        setPause(false);
+    }
+})
+
+
+
+
 function startTimer(){
        intervalRef.current= setInterval(()=>{
        setTimeLeft(timeLeft => {
@@ -21,21 +38,71 @@ function startTimer(){
 function stopTimer(){
 clearInterval(intervalRef.current)
 }
+
+
+const {
+   pausee,
+    isRunning,
+    start,
+  } = useTimer()
+
+
+
  return(
   <div className="main">
      <div className="span">
          <span>{minutes}</span>
          <span>:</span>
          <span>{seconds}</span>
+         <p>{isRunning ? 'Running' : 'Not running'}</p>
      </div>
      <div className="btn">
-         <button onClick={startTimer}>Start</button>
-         <button onClick={stopTimer}>Stop</button>
+     {isRunning && (
+         <button onClick={startTimer}>Start</button>)}
+           {!isRunning && (
+         <button onClick={pausee}>Stop</button>)}
     </div>
      <div className="line"style={{ width: `calc(${timeLeft} * (100% / ${useState(30)}))` }}></div>
   </div>
    )
 }
-export default Main
+*/ }
+function MyTimer({ expiryTimestamp }) {
+    const {
+      seconds,
+      minutes,
+      isRunning,
+      start,
+      pause,
+      } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+
+    const[timeLeft,setTimeLeft]=useState(30);
+  
+    return (
+      <div style={{textAlign: 'center'}}>
+        <div style={{fontSize: '50px'}}>
+         <span>{minutes}</span>:<span>{seconds}</span>
+        </div>
+        <p>{isRunning ? 'Running' : 'Not running'}</p>
+      
+        <button onClick={start}>Start</button> 
+        
+        <button onClick={pause}>Pause</button>
+      
+        <div className="line"style={{ width: `calc(${seconds} * (100% / ${useState(30)}))` }}></div>
+      </div>
+    );
+  }
+  
+  export default function Main() {
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + 30); 
+    return (
+      <div>
+        <MyTimer expiryTimestamp={time} />
+      </div>
+    );
+  }
+///
 
 
