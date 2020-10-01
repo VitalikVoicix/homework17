@@ -1,16 +1,16 @@
 import React,{useState,useRef,useEffect} from "react"
 import "./main.css"
-import { useTimer } from 'react-timer-hook';
+import { useTimer,useStopwatch } from 'react-timer-hook';
 
-{/*
-const  Main =()=>{
+
+{/*const  Main =()=>{
 function padTime(time){
     return time.toString().padStart(2,"0");
 }
 
 const[timeLeft,setTimeLeft]=useState(30);
 
-const [pause, setPause] = useState(false);
+const [pause, setPause] = useState(true);
 const intervalRef = useRef(null);
 const minutes=padTime(Math.floor(timeLeft/60));
 const seconds=padTime(timeLeft-minutes*60);
@@ -72,16 +72,16 @@ clearInterval(intervalRef.current)
    )
 }
 */ }
-function MyTimer({ expiryTimestamp }) {
+function MyStopwatch() {
     const {
       seconds,
       minutes,
       isRunning,
       start,
       pause,
-      } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+      } = useStopwatch({avtostart:true});
 
-    const[timeLeft,setTimeLeft]=useState(30);
+    
   
     return (
       <div style={{textAlign: 'center'}}>
@@ -100,11 +100,11 @@ function MyTimer({ expiryTimestamp }) {
   }
   
   export default function Main() {
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 30); 
+    //const time = new Date();
+    //time.setSeconds(time.getSeconds() + 30); 
     return (
       <div>
-        <MyTimer expiryTimestamp={time} />
+        <MyStopwatch />
       </div>
     );
   }
